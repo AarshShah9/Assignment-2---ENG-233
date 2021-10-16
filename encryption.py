@@ -13,8 +13,12 @@ def menu2(userchoice):
     alphabet = string.ascii_lowercase
 
     message = input('Please enter the text to be processed: ').lower()
-    cipher_text = input(
-        'Please enter the cipher text (alpha-numerical only): ').lower()
+    if message.isalpha() == True:
+        cipher_text = input(
+            'Please enter the cipher text (alpha-numerical only): ').lower()
+    else:
+        print('The provided message is not valid please try again')
+        menu2(userchoice)
 
     if cipher_text.isalnum() == True:
         # Might have to switch and get it to check if the cipher text exists within a dictionary or list
@@ -27,12 +31,11 @@ def menu2(userchoice):
             elif userchoice == '2':
                 decode(message, cipher_text_no_dup, alphabet)
         else:
-            print(
-                'The provided cipher is not alpha-numerical please try again')
-            menu2()
+            print('The provided cipher is not 26 characters please try again')
+            menu2(userchoice)
     else:
-        print('The provided cipher is not 26 characters please try again')
-        menu2()
+        print('The provided cipher is not alpha-numerical please try again')
+        menu2(userchoice)
 
 
 def encode(message, cipher_text_no_dup, alphabet):
