@@ -22,19 +22,34 @@ def menu2(userchoice):
     alphabet = string.ascii_lowercase
 
     # Asks the user to input the message the want to be encoded/decoded
-    message = input('Please enter the text to be processed: ').lower()
+    message = str(input('Please enter the text to be processed: ').lower())
     # Removes any spaces that are in the inputted messsage
     message = message.replace(' ', '')
-    # Checks if the message is alphabetical
-    if message.isalpha() == True:
-        # Asks the user to input their 26 character cipher
-        cipher_text = input(
-            'Please enter the cipher text (alpha-numerical only, 26 characters): '
-        ).lower()
-    # If its not alphabetical it asks the user to input a valid message
-    else:
-        print('The provided message is not valid please try again')
-        menu2(userchoice)
+
+    # Checks if the user wants to encode and if the message is alphabetical
+    if userchoice == '1':
+        if message.isalpha() == True:
+            # Asks the user to input their 26 character cipher
+            cipher_text = str(
+                input(
+                    'Please enter the cipher text (alpha-numerical only, 26 characters): '
+                ).lower())
+        # If it isn't alphabetical it prompts the user to try again
+        else:
+            print('The provided message is not valid please try again')
+            menu2(userchoice)
+    # Checks if the user wants to decode and if the message is alphanumerical
+    elif userchoice == '2':
+        if message.isalnum() == True:
+            # Asks the user to input their 26 character cipher
+            cipher_text = str(
+                input(
+                    'Please enter the cipher text (alpha-numerical only, 26 characters): '
+                ).lower())
+        # If it isn't alphanumerical it prompts the user to try again
+        else:
+            print('The provided message is not valid please try again')
+            menu2(userchoice)
 
     # Check to see if the inputted cipher is alpha-numerical
     if cipher_text.isalnum() == True:
@@ -69,15 +84,26 @@ def encode(message, cipher_text_no_dup, alphabet):
         alphabet (str): passes the alphabet string
     """
 
+    # Creates an empty dictionary that will store the key-value pairs for the cipher and alphabet
     new_dic = {}
+    # Creates a new variable for the number of iterations that the proceeding for loop has gone through
     iteration = 0
+
+    # For loop that takes every character in the alphabet and assigns it to i
     for i in alphabet:
+        # Takes every charcter in the alphabet and assigns it with the cipher in a dictionary
         new_dic[i] = cipher_text_no_dup[iteration]
+        # Adds 1 to the iteration value aka the key value number in the cipher
         iteration += 1
 
+    # Creates empty string that will store the new encoded messsage
     new_msg = ''
+    # For loop that takes every character in the message and assigns it to i
     for i in message:
+        # Calls the key value from the dictionary and adds each value to the new_msg string
         new_msg += new_dic[i]
+
+    # Prints the new message and calls the main menu function
     print(f'Your output is: {new_msg}')
     main_menu()
 
@@ -92,18 +118,25 @@ def decode(message, cipher_text_no_dup, alphabet):
         alphabet (str): passes the alphabet string
     """
 
-    # Creates an empty dictionary
+    # Creates an empty dictionary that will store the key-value pairs for the cipher and alphabet
     new_dic = {}
     # Creates a new variable for the number of iterations that the proceeding for loop has gone through
     iteration = 0
-    # For loop that takes every letter in the cypher and
+    # For loop that takes every character in the cypher and assigns it to i
     for i in cipher_text_no_dup:
+        # Takes every charcter in the cipher and assigns it with the alphabet in a dictionary
         new_dic[i] = alphabet[iteration]
+        # Adds 1 to the iteration value aka the key value number in the alphabet
         iteration += 1
 
+    # Creates empty string that will store the new decoded messsage
     new_msg = ''
+    # For loop that takes every character in the message and assigns it to i
     for i in message:
+        # Calls the key value from the dictionary and adds each value to the new_msg string
         new_msg += new_dic[i]
+
+    # Prints the new message and calls the main menu function
     print(f'Your output is: {new_msg}')
     main_menu()
 
@@ -116,9 +149,10 @@ def main_menu():
     """
 
     # Asks the user what they would like to do and stores it in a variable
-    user_choice = input(
-        'Would you like to:\nEncode your text (1)\nDecode your text (2)\nEnd the program (0):\n'
-    )
+    user_choice = str(
+        input(
+            'Would you like to:\nEncode your text (1)\nDecode your text (2)\nEnd the program (0):\n'
+        ))
     # If the user chooses 1 or 2 the function menu2 will be called while also passing the userchoice value
     if user_choice == '1':
         menu2(user_choice)
