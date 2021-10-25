@@ -10,6 +10,8 @@ import string
 
 def menu2(userchoice):
     """The encode function takes a message and encodes it into a """
+    alphabet = string.ascii_lowercase
+
 
     message = input('Please enter the text to be processed: ').lower()
     if message.isalpha() == True:
@@ -25,8 +27,7 @@ def menu2(userchoice):
         message = message.replace(' ', '')
         if len(cipher_text_no_dup) == 26:
             print('Your cipher is valid.')
-            alphabet = string.ascii_lowercase
-
+            
             if userchoice == '1':
                 encode(message, cipher_text_no_dup, alphabet)
             elif userchoice == '2':
