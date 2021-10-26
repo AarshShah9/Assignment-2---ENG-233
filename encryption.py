@@ -77,6 +77,7 @@ def menu2(userchoice):
 def encode(message, cipher_text_no_dup, alphabet):
     """The encode function takes the users inputted message and reassigns each character with an
     alphanumerical value according to the cipher using a for loop. It then prints out the encoded message.
+
     Parameters:
         message (str): passes the message inputted from the user in menu2
         cipher_text_no_dup (str): passes the cipher text (with no duplicates) from menu 2
@@ -110,6 +111,7 @@ def encode(message, cipher_text_no_dup, alphabet):
 def decode(message, cipher_text_no_dup, alphabet):
     """The decode function takes the users inputted message and reassigns each character with an
     alphanumerical value according to the cipher using a for loop. It then prints out the decoded message.
+
     Parameters:
         message (str): passes the message inputted from the user in menu2
         cipher_text_no_dup (str): passes the cipher text (with no duplicates) from menu 2
@@ -143,7 +145,6 @@ def main_menu():
     """The function main menu asks the user if they would like encode or decode a message, or quit the program.
     Then according to the users choice it wil call the corresponding function (and if its to encode or decode it will
     pass the userchoice value to the menu2 function)
-    
     """
 
     # Asks the user what they would like to do and stores it in a variable
