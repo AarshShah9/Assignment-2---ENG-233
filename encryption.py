@@ -4,24 +4,27 @@
 # You may optionally import the string module from the standard Python library. No other modules may be imported.
 # Remember to include docstrings for your functions and comments throughout your code.
 
-### Define your functions here
 import string
 
 
-def menu2(userchoice):
-    """The menu2 is called from the main menu and asks the user to input their message and cyhper.
+def secondary_menu(userchoice):
+    """
+    The secondary_menu is called from the main menu and asks the user to input their message and cyhper.
     In addition it does a series of checks to determine if: the message is alphabetical and removes 
     any spaces, and to check if the cypher is alphanumerical and removes any duplicate values. If the inputs
     pass the checks it calles the encode or decode function depending on what the user chose in the main menu.
     
     Parameters: 
         userchoice: the value associated with if the user chose to encode or decode.
+    
+    Returns:
+        None
     """
 
     # Stores the alphabet in a variable from the string module
     alphabet = string.ascii_lowercase
 
-    # Asks the user to input the message the want to be encoded/decoded
+    # Asks the user to input the message they want to be encoded/decoded
     message = str(input('Please enter the text to be processed: ').lower())
     # Removes any spaces that are in the inputted messsage
     message = message.replace(' ', '')
@@ -37,7 +40,7 @@ def menu2(userchoice):
         # If it isn't alphabetical it prompts the user to try again
         else:
             print('The provided message is not valid please try again')
-            menu2(userchoice)
+            secondary_menu(userchoice)
     # Checks if the user wants to decode and if the message is alphanumerical
     elif userchoice == '2':
         if message.isalnum() == True:
@@ -49,39 +52,43 @@ def menu2(userchoice):
         # If it isn't alphanumerical it prompts the user to try again
         else:
             print('The provided message is not valid please try again')
-            menu2(userchoice)
+            secondary_menu(userchoice)
 
-    # Check to see if the inputted cipher is alpha-numerical
+    # Checks to see if the inputted cipher is alpha-numerical
     if cipher_text.isalnum() == True:
         # Removes any duplicate values from the inputted cipher
         cipher_text_no_dup = ''.join(dict.fromkeys(cipher_text))
         # Checks to see if the cipher inputted after removing duplicate values is 26 characters
         if len(cipher_text_no_dup) == 26:
             print('Your cipher is valid.')
-            # Calls encode function passing important values if user wanted to encode
+            # Calls encode function passing the message, cipher and alphabet if user wanted to encode
             if userchoice == '1':
                 encode(message, cipher_text_no_dup, alphabet)
-            # Calls decode function passing important values if user wanted to decode
+            # Calls decode function passing the message, cipher and alphabet if user wanted to decode
             elif userchoice == '2':
                 decode(message, cipher_text_no_dup, alphabet)
         # If the cipher wasn't 26 characters then it allows the user to renter their message and cipher
         else:
             print('The provided cipher is not 26 characters please try again')
-            menu2(userchoice)
+            secondary_menu(userchoice)
     # If the cipher wasn't alpha-numerical then it allows the user to renter their message and cipher
     else:
         print('The provided cipher is not alpha-numerical please try again')
-        menu2(userchoice)
+        secondary_menu(userchoice)
 
 
 def encode(message, cipher_text_no_dup, alphabet):
-    """The encode function takes the users inputted message and reassigns each character with an
+    """
+    The encode function takes the users inputted message and reassigns each character with an
     alphanumerical value according to the cipher using a for loop. It then prints out the encoded message.
 
     Parameters:
-        message (str): passes the message inputted from the user in menu2
-        cipher_text_no_dup (str): passes the cipher text (with no duplicates) from menu 2
+        message (str): passes the message inputted from the user in secondary_menu
+        cipher_text_no_dup (str): passes the cipher text (with no duplicates) from secondary_menu
         alphabet (str): passes the alphabet string
+
+    Returns:
+        None
     """
 
     # Creates an empty dictionary that will store the key-value pairs for the cipher and alphabet
@@ -93,7 +100,7 @@ def encode(message, cipher_text_no_dup, alphabet):
     for i in alphabet:
         # Takes every charcter in the alphabet and assigns it with the cipher in a dictionary
         new_dic[i] = cipher_text_no_dup[iteration]
-        # Adds 1 to the iteration value aka the key value number in the cipher
+        # Adds 1 to the iteration value a.k.a. the key value number in the cipher
         iteration += 1
 
     # Creates empty string that will store the new encoded messsage
@@ -104,18 +111,22 @@ def encode(message, cipher_text_no_dup, alphabet):
         new_msg += new_dic[i]
 
     # Prints the new message and calls the main menu function
-    print(f'Your output is: {new_msg}')
+    print(f'Your output is: {new_msg}\n')
     main_menu()
 
 
 def decode(message, cipher_text_no_dup, alphabet):
-    """The decode function takes the users inputted message and reassigns each character with an
+    """
+    The decode function takes the users inputted message and reassigns each character with an
     alphanumerical value according to the cipher using a for loop. It then prints out the decoded message.
 
     Parameters:
-        message (str): passes the message inputted from the user in menu2
-        cipher_text_no_dup (str): passes the cipher text (with no duplicates) from menu 2
+        message (str): passes the message inputted from the user in secondary_menu
+        cipher_text_no_dup (str): passes the cipher text (with no duplicates) from secondary_menu
         alphabet (str): passes the alphabet string
+
+    Returns:
+        None
     """
 
     # Creates an empty dictionary that will store the key-value pairs for the cipher and alphabet
@@ -126,7 +137,7 @@ def decode(message, cipher_text_no_dup, alphabet):
     for i in cipher_text_no_dup:
         # Takes every charcter in the cipher and assigns it with the alphabet in a dictionary
         new_dic[i] = alphabet[iteration]
-        # Adds 1 to the iteration value aka the key value number in the alphabet
+        # Adds 1 to the iteration value a.k.a. the key value number in the alphabet
         iteration += 1
 
     # Creates empty string that will store the new decoded messsage
@@ -137,26 +148,33 @@ def decode(message, cipher_text_no_dup, alphabet):
         new_msg += new_dic[i]
 
     # Prints the new message and calls the main menu function
-    print(f'Your output is: {new_msg}')
+    print(f'Your output is: {new_msg}\n')
     main_menu()
 
 
 def main_menu():
-    """The function main menu asks the user if they would like encode or decode a message, or quit the program.
+    """
+    The function main menu asks the user if they would like encode or decode a message, or quit the program.
     Then according to the users choice it wil call the corresponding function (and if its to encode or decode it will
-    pass the userchoice value to the menu2 function)
+    pass the userchoice value to the secondary_menu function)
+
+    Parameters:
+        None
+
+    Returns:
+        None
     """
 
     # Asks the user what they would like to do and stores it in a variable
     user_choice = str(
         input(
-            'Would you like to:\nEncode your text (1)\nDecode your text (2)\nEnd the program (0):\n'
+            'Would you like to: Encode your text (1), Decode your text (2), End the program (0):\n'
         ))
-    # If the user chooses 1 or 2 the function menu2 will be called while also passing the userchoice value
+    # If the user chooses 1 or 2 the function secondary_menu will be called while also passing the userchoice value
     if user_choice == '1':
-        menu2(user_choice)
+        secondary_menu(user_choice)
     elif user_choice == '2':
-        menu2(user_choice)
+        secondary_menu(user_choice)
     # If the user chooses to quit the program will print a thank you statement then end
     elif user_choice == '0':
         print('Thank you for using the encryption program.')
